@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ProjetoDeRestaurante.Models
 {
-    [Table("Catergorias")]
+    [Table("Categorias")]
     public class Categoria
     {
         [Key]
