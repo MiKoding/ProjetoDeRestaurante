@@ -8,16 +8,16 @@ namespace ProjetoDeRestaurante.Migrations
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.Sql("INSERT INTO Catergorias (CategoriaNome, Descricao)"+
+            migrationBuilder.Sql("INSERT INTO Categorias (CategoriaNome, Descricao)"+
                 ("VALUES ('Normal','Pedido Feito com ingredientes normais')"));
             
-            migrationBuilder.Sql("INSERT INTO Catergorias (CategoriaNome, Descricao)"+
+            migrationBuilder.Sql("INSERT INTO Categorias (CategoriaNome, Descricao)"+
                 ("VALUES ('Naturais','Pedido Feito com ingredientes integrais e naturais')"));
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.Sql("DELETE FROM Catergorias");
+            migrationBuilder.Sql("DELETE FROM Categorias");
         }
     }
 }

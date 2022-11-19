@@ -9,7 +9,7 @@ namespace ProjetoDeRestaurante.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Catergorias",
+                name: "Categorias",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -19,7 +19,7 @@ namespace ProjetoDeRestaurante.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Catergorias", x => x.Id);
+                    table.PrimaryKey("PK_Categorias", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -42,9 +42,9 @@ namespace ProjetoDeRestaurante.Migrations
                 {
                     table.PrimaryKey("PK_Pedido", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Pedido_Catergorias_CategoriaId",
+                        name: "FK_Pedido_Categorias_CategoriaId",
                         column: x => x.CategoriaId,
-                        principalTable: "Catergorias",
+                        principalTable: "Categorias",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -61,7 +61,7 @@ namespace ProjetoDeRestaurante.Migrations
                 name: "Pedido");
 
             migrationBuilder.DropTable(
-                name: "Catergorias");
+                name: "Categorias");
         }
     }
 }
