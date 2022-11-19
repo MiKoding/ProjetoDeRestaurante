@@ -1,0 +1,32 @@
+﻿@model PedidoListViewModel
+
+@{
+    ViewData["Title"] = "List";
+    
+}
+
+<h1>List</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<div>
+    <h2>@ViewData["Titulo"]</h2>
+</div>
+<h2>
+    @ViewData["Data"]
+</h2>
+<hr />
+<h3>@ViewBag.Total @ViewBag.TotalLanches</h3>
+<hr />
+<div>
+    @Model.CategoriaAtual
+</div>
+<div class="container">
+<div class="row">
+@foreach(var pedido in Model.Pedido)
+{
+ <partial name="_PedidosResumo" for="@pedido"/>
+}
+</div>
+</div>
