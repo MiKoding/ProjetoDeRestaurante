@@ -60,6 +60,13 @@ app.UseAuthorization();
 
 app.UseSession();// adicionado para usar Sessio
 
+
+app.MapControllerRoute(
+    name: "categoriaFiltro",
+    pattern: "Pedido/{action}/{categoria?}",
+    defaults: new { Controller = "Pedido", actrion = "List" }
+
+    );
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
