@@ -17,13 +17,13 @@ namespace ProjetoDeRestaurante.Components
 
         public IViewComponentResult Invoke()
         {
-            //var itens = _carrinhoCompra.GetCarrinhoCompraItens();
+            var itens = _carrinhoCompra.GetCarrinhoCompraItens();
 
-            var itens = new List<CarrinhoCompraItem>(){
-                    new CarrinhoCompraItem(),
-                    new CarrinhoCompraItem(),
+            //var itens = new List<CarrinhoCompraItem>(){
+            //        new CarrinhoCompraItem(),
+            //        new CarrinhoCompraItem(),
 
-            }; // teste de quantidade
+            //}; // teste de quantidade
             _carrinhoCompra.CarrinhoCompraItens = itens;
             var carrinhoCompraVM = new CarrinhoCompraViewModel
             {
