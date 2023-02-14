@@ -25,21 +25,22 @@ namespace ProjetoDeRestaurante.Controllers
             }
             else
             {
-                if (string.Equals("Normal", categoria, StringComparison.OrdinalIgnoreCase))
-                {
-                    pedidos = _pedidoRepository.Pedidos.Where(p => p.Categoria.CategoriaNome.Equals("Normal"))
-                              .OrderBy(p => p.Nome);
-                }
-                else if(string.Equals("Naturais",categoria, StringComparison.OrdinalIgnoreCase))
-                {
-                    pedidos = _pedidoRepository.Pedidos.Where(p => p.Categoria.CategoriaNome.Equals("Naturais"))
-                              .OrderBy(c => c.Nome);
-                }
-                else
-                {
-                    pedidos = _pedidoRepository.Pedidos.OrderBy(p => p.Id);
-                    categoriaAtual = "Todos os Pedidos";
-                }
+                //if (string.Equals("Normal", categoria, StringComparison.OrdinalIgnoreCase))
+                //{
+                //    pedidos = _pedidoRepository.Pedidos.Where(p => p.Categoria.CategoriaNome.Equals("Normal"))
+                //              .OrderBy(p => p.Nome);
+                //}
+                //else if(string.Equals("Naturais",categoria, StringComparison.OrdinalIgnoreCase))
+                //{
+                //    pedidos = _pedidoRepository.Pedidos.Where(p => p.Categoria.CategoriaNome.Equals("Naturais"))
+                //              .OrderBy(c => c.Nome);
+                //}
+                //else
+                //{
+                //    pedidos = _pedidoRepository.Pedidos.OrderBy(p => p.Id);
+                //    categoriaAtual = "Todos os Pedidos";
+                //}
+                pedidos = _pedidoRepository.Pedidos.Where(l => l.Categoria.CategoriaNome == categoria).OrderBy(l => l.Nome);
                 categoriaAtual = categoria;
             }
 
@@ -50,6 +51,13 @@ namespace ProjetoDeRestaurante.Controllers
             };
 
             return View(pedidoListViewModel);
+        }
+
+        public IActionResult Details(int PedidoId)
+        {
+            var pedido = _pedidoRepository.Pedidos.FirstOrDefault(p => p.Id == PedidoId);
+
+            return View(pedido);
         }
         public IActionResult Create()
         {

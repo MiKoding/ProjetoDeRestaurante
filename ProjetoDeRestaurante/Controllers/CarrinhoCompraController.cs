@@ -32,24 +32,24 @@ namespace ProjetoDeRestaurante.Controllers
             return View(carrinhoCompraVM);
         }
 
-        public RedirectToActionResult AdicionarItemNoCarrinhoCompra(int lancheId)
+        public RedirectToActionResult AdicionarItemNoCarrinhoCompra(int pedidoId)
         {
-            var lancheSelecionado = _pedidoRepositoy.Pedidos.FirstOrDefault(p => p.Id == lancheId);
+            var pedidoSelecionado = _pedidoRepositoy.Pedidos.FirstOrDefault(p => p.Id == pedidoId);
 
-            if(lancheSelecionado != null)
+            if(pedidoSelecionado != null)
             {
-                _carrinhoCompra.AdicionarAoCarrinho(lancheSelecionado);
+                _carrinhoCompra.AdicionarAoCarrinho(pedidoSelecionado);
             }
 
             return RedirectToAction("Index");
         }
 
-        public RedirectToActionResult RemoverItemDoCarrinho(int lancheId)
+        public RedirectToActionResult RemoverItemDoCarrinho(int pedidoId)
         {
-            var lancheSelecionado = _pedidoRepositoy.Pedidos.FirstOrDefault(p => p.Id == lancheId);
-            if(lancheSelecionado != null)
+            var pedidoSelecionado = _pedidoRepositoy.Pedidos.FirstOrDefault(p => p.Id == pedidoId);
+            if(pedidoSelecionado != null)
             {
-                _carrinhoCompra.RemoverDoCarrinho(lancheSelecionado);
+                _carrinhoCompra.RemoverDoCarrinho(pedidoSelecionado);
             }
 
             return RedirectToAction("Index");
