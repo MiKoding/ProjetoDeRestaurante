@@ -25,14 +25,14 @@ namespace ProjetoDeRestaurante.Controllers
             {
                 CarrinhoCompra = _carrinhoCompra,
                 CarrinhoCompraTotal = _carrinhoCompra.GetCarrinhoCompraTotal()
-                
+
             };
 
 
             return View(carrinhoCompraVM);
         }
 
-        public RedirectToActionResult AdicionarItemNoCarrinhoCompra(int pedidoId)
+        public ActionResult AdicionarItemNoCarrinhoCompra(int pedidoId)
         {
             var pedidoSelecionado = _pedidoRepositoy.Pedidos.FirstOrDefault(p => p.Id == pedidoId);
 

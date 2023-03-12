@@ -27,7 +27,7 @@ namespace ProjetoDeRestaurante.Models
             var context = services.GetService<AppDbContext>();
 
             //obtem ou gera id do carrinho 
-            string carrinhoId =  session.GetString("CarrinhoId")??Guid.NewGuid().ToString();
+            string carrinhoId =  session.GetString("CarrinhoId") ?? Guid.NewGuid().ToString();
 
             //atribui o id do carrinho na sessão
             session.SetString("CarrinhoId", carrinhoId);
@@ -49,6 +49,7 @@ namespace ProjetoDeRestaurante.Models
                     Pedido = pedido,
                     Quantidade = 1
                 };
+                _context.CarrinhoCompraItens.Add(carrinhoCompraItem);
             }
             else
             {
@@ -80,6 +81,7 @@ namespace ProjetoDeRestaurante.Models
 
         public List<CarrinhoCompraItem> GetCarrinhoCompraItens()
         {
+            var ListPedidos = _context.CarrinhoCompraItens.Where(c => c.CarrinhoCompraId == Id).ToList();
             return CarrinhoCompraItens ?? (CarrinhoCompraItens = _context.CarrinhoCompraItens
                 .Where(c=>c.CarrinhoCompraId == Id)
                 .Include(p=>p.Pedido)
