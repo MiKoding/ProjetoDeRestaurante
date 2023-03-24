@@ -33,7 +33,7 @@ namespace ProjetoDeRestaurante.Repositories
                     Preco = carrinhoItem.Pedido.Preco
                 };
 
-                _appDbContext.CompraDetalhes.Add(pedidoDetail)
+                _appDbContext.CompraDetalhes.Add(pedidoDetail);
             };
 
             _appDbContext.SaveChanges();

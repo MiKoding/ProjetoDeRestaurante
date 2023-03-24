@@ -59,6 +59,36 @@ namespace ProjetoDeRestaurante.Controllers
 
             return View(pedido);
         }
+
+        public ViewResult Search(string searchString)
+        {
+            IEnumerable<Pedido> pedidos;
+            string categoriaAtual = string.Empty;
+
+            if (string.IsNullOrEmpty(searchString))
+            {
+                pedidos = _pedidoRepository.Pedidos.OrderBy(p => p.Id);
+                categoriaAtual = "Todos os pedidos";
+            }
+            else
+            {
+                pedidos = _pedidoRepository.Pedidos.Where(p => p.Nome.ToLower().Contains(searchString.ToLower()));
+                if (pedidos.Any())
+                {
+                    categoriaAtual = "Pedidos";
+                }
+                else
+                {
+                    categoriaAtual = "Nenhum pedido encontrado";               }
+            }
+
+            return View("~/Views/Pedido/List.cshtml", new PedidoListViewModel
+            {
+                Pedido = pedidos,
+                CategoriaAtual = categoriaAtual
+            });
+
+        }
         public IActionResult Create()
         {
             
