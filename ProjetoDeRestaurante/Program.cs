@@ -32,6 +32,7 @@ builder.Services.AddDbContext<AppDbContext>(options => options
                 .UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 builder.Services.AddTransient<IPedidoRepository, PedidoRepository>();
 builder.Services.AddTransient<ICategoriaRepository, CategoriaRepository>();
+builder.Services.AddTransient<ICompraRepository, CompraRepository>();
 builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();// adicionado para registrar a interface IhttpcontextAcessor para inj~ção de dependencias
 builder.Services.AddScoped(sp => CarrinhoCompra.GetCarrinho(sp));
 
