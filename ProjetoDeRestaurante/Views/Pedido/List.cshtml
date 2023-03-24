@@ -26,7 +26,7 @@
 <div class="row">
 @foreach(var pedido in Model.Pedido)
 {
- <partial name="_PedidosResumo" for="@pedido"/>
+ <partial name="_PedidosResumo" for="@pedido"/> @*replicação _PedidoResumo é aplicada pela view encontrada em views/shared/_PedidosResumo.cshtml *@
 }
 </div>
 </div>
