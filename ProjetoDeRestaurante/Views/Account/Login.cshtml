@@ -1,0 +1,52 @@
+﻿@model LoginViewModel
+<!-- Pills content -->
+<div class="tab-content">
+  <div>
+      <img src="~/images/3135768.png" style="width:120px" alt="Fazer o Login" class="center-block" />
+      <h4>LOGIN</h4>
+      <form  asp-controller="Account" asp-action="Login" method="post" role="form">
+      <div asp-validation-summary="All" class="text-danger"></div>
+      <input type="hidden" asp-for="ReturnUrl" />
+      <hr/>
+      <!-- Email input -->
+       <div class="form-outline mb-4">
+         <label asp-for="UserName" class="col-md-2 control-label"></label>
+         <div class="col-md-6">
+             <input asp-for="UserName" class="form-control" />
+             <span asp-validation-for="UserName" class="text-danger"></span>
+         </div>
+       </div>
+      <!-- Password input -->
+      <div class="form-outline mb-4">
+         <label asp-for="Pàssword" class="col-md-2 control-label"></label>
+         <div class="col-md-6">
+             <input asp-for="Pàssword" class="form-control" />
+             <span asp-validation-for="Pàssword" class="text-danger"></span>
+         </div>
+       </div>
+
+      <!-- 2 column grid layout -->
+      <div class="row mb-4">
+        <div class="col-md-6 d-flex justify-content-center">
+          <!-- Simple link -->
+          <a href="#!">Forgot password?</a>
+          <p style="margin-left:10px;">Not a member? <a asp-controller="Account" asp-action="Register">Register</a></p>
+        </div>
+      </div>
+
+      <!-- Submit button -->
+      <div class="form-group">
+          <div class="col-md-6">
+               <input type="submit" class="btn btn-primary btn-block mb-4" value="Login">
+          </div>
+      </div>
+     
+      </form>
+      <!-- Register buttons -->
+      <div class="text-center">
+        
+      </div>
+    
+  </div>
+</div>
+<!-- Pills content -->
