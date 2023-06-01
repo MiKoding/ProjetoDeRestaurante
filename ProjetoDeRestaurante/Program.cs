@@ -71,15 +71,25 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 
+
+
+app.MapControllerRoute(
+      name: "areas",
+      pattern: "{area:exists}/{controller=Admin}/{action=Index}/{id?}");
+
 app.MapControllerRoute(
     name: "categoriaFiltro",
     pattern: "Pedido/{action}/{categoria?}",
-    defaults: new { Controller = "Pedido", actrion = "List" }
+    defaults: new { Controller = "Pedido", action = "List" }
 
     );
+
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
+
+
+ 
 
 app.Run();
