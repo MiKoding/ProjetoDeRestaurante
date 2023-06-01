@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using ProjetoDeRestaurante.Models;
 using ProjetoDeRestaurante.Repositories.Interface;
 using ProjetoDeRestaurante.ViewModels;
@@ -32,6 +33,7 @@ namespace ProjetoDeRestaurante.Controllers
             return View(carrinhoCompraVM);
         }
 
+        [Authorize]
         public ActionResult AdicionarItemNoCarrinhoCompra(int pedidoId)
         {
             var pedidoSelecionado = _pedidoRepositoy.Pedidos.FirstOrDefault(p => p.Id == pedidoId);
@@ -43,7 +45,7 @@ namespace ProjetoDeRestaurante.Controllers
 
             return RedirectToAction("Index");
         }
-
+        [Authorize]
         public RedirectToActionResult RemoverItemDoCarrinho(int pedidoId)
         {
             var pedidoSelecionado = _pedidoRepositoy.Pedidos.FirstOrDefault(p => p.Id == pedidoId);

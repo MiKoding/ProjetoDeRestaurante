@@ -1,9 +1,11 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using ProjetoDeRestaurante.ViewModels;
 
 namespace ProjetoDeRestaurante.Controllers
 {
+ 
     public class AccountController : Controller
     {
         private readonly UserManager<IdentityUser> _userManager;
@@ -14,7 +16,7 @@ namespace ProjetoDeRestaurante.Controllers
             _userManager = userManager;
             _signInManager = signInManager;
         }
-
+     
         [HttpGet]
         public IActionResult Login(string returnUrl)
         {
