@@ -21,10 +21,11 @@ using Microsoft.EntityFrameworkCore;
 using ProjetoDeRestaurante.Repositories.Interface;
 using ProjetoDeRestaurante.Models;
 using ProjetoDeRestaurante.Repositories;
+using ProjetoDeRestaurante.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
-var builder = WebApplication.CreateBuilder(args);
+var builder = WebApplication.CreateBuilder(args );
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
@@ -41,6 +42,7 @@ builder.Services.AddTransient<ICategoriaRepository, CategoriaRepository>();
 builder.Services.AddTransient<ICompraRepository, CompraRepository>();
 builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();// adicionado para registrar a interface IhttpcontextAcessor para inj~ção de dependencias
 builder.Services.AddScoped(sp => CarrinhoCompra.GetCarrinho(sp));
+builder.Services.AddScoped<ISeedUserRoleInitial, SeedUserRoleInitial>();
 
 
 builder.Services.AddMemoryCache();// adicionado para implementar o cache de memoria
@@ -48,7 +50,6 @@ builder.Services.AddSession();// adicionado para aplicar a Session
 
 
 var app = builder.Build();
-
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
@@ -63,13 +64,14 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+CriarPerfisUsuario(app);
+
 app.UseAuthorization();
 
 app.UseSession();// adicionado para usar Sessio
 
 app.UseAuthentication();
 app.UseAuthorization();
-
 
 
 
@@ -93,3 +95,14 @@ app.MapControllerRoute(
  
 
 app.Run();
+
+void CriarPerfisUsuario(WebApplication app)
+{
+    var scopedfactory = app.Services.GetService<IServiceScopeFactory>();
+    using (var scope = scopedfactory.CreateScope())
+    {
+        var service = scope.ServiceProvider.GetService<ISeedUserRoleInitial>();
+        service.SeedUsers();
+        service.SeedRoles();
+    }
+}
