@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace ProjetoDeRestaurante.Areas.Admin.Controllers
 {
-    [Authorize]
+    [Authorize("Admin")]
     [Area("Admin")]
     public class AdminController : Controller
     {

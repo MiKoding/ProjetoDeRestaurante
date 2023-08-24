@@ -40,11 +40,18 @@ builder.Services.AddIdentity<IdentityUser, IdentityRole>()
 builder.Services.AddTransient<IPedidoRepository, PedidoRepository>();
 builder.Services.AddTransient<ICategoriaRepository, CategoriaRepository>();
 builder.Services.AddTransient<ICompraRepository, CompraRepository>();
-builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();// adicionado para registrar a interface IhttpcontextAcessor para inj~ção de dependencias
+builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();// adicionado para registrar a interface IhttpcontextAcessor para injeção de dependencias
 builder.Services.AddScoped(sp => CarrinhoCompra.GetCarrinho(sp));
 builder.Services.AddScoped<ISeedUserRoleInitial, SeedUserRoleInitial>();
 
-
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("Admin", 
+        politica =>
+        {
+            politica.RequireRole("Admin");
+        });
+});// adição de politica de regras de perfil admin
 builder.Services.AddMemoryCache();// adicionado para implementar o cache de memoria
 builder.Services.AddSession();// adicionado para aplicar a Session
 
@@ -64,9 +71,7 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
-CriarPerfisUsuario(app);
-
-app.UseAuthorization();
+CriarPerfisUsuario(app);// chama para que seja executada a criação de perfis e regras na inicialização.
 
 app.UseSession();// adicionado para usar Sessio
 

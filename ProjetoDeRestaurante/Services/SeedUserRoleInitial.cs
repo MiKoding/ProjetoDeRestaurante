@@ -14,16 +14,16 @@ namespace ProjetoDeRestaurante.Services
             _roleManager = roleManager;
         }
 
-        public void SeedRoles()
+        public void SeedRoles()// cria os cargos Membros e Admin no banco de dados na tabela AspNetRoles de formar automatica
         {
-            if (!_roleManager.RoleExistsAsync("Member").Result)
+            if (!_roleManager.RoleExistsAsync("Member").Result)//se caso não existir algum cargo com o nome "Member", o codigo continuara a execução e criara o cargo
             {
-                IdentityRole role = new IdentityRole();
+                IdentityRole role = new IdentityRole(); //objeto criado a partir do pacote identity no ASP.Net
                 role.Name = "Member";
                 role.NormalizedName = "MEMBER";
                 IdentityResult roleresult = _roleManager.CreateAsync(role).Result;
             }
-            if (!_roleManager.RoleExistsAsync("Admin").Result)
+            if (!_roleManager.RoleExistsAsync("Admin").Result)// se caso não existir o cargo "Admin", o codigo continuara e criará o perfil admmin
             {
                 IdentityRole role = new IdentityRole();
                 role.Name = "Admin";
@@ -32,9 +32,9 @@ namespace ProjetoDeRestaurante.Services
             }
         }
 
-        public void SeedUsers()
+        public void SeedUsers() 
         {
-           if(_userManager.FindByEmailAsync("usuario@localhost").Result == null)
+           if(_userManager.FindByEmailAsync("usuario@localhost").Result == null)// criar um usuario padrão
             {
                 IdentityUser user = new IdentityUser();
                 user.UserName = "usuario@localhost";
@@ -53,7 +53,7 @@ namespace ProjetoDeRestaurante.Services
                 }
             }
             
-            if(_userManager.FindByEmailAsync("admin@localhost").Result == null)
+            if(_userManager.FindByEmailAsync("admin@localhost").Result == null)// cria o admin
             {
                 IdentityUser user = new IdentityUser();
                 user.UserName = "admin@localhost";

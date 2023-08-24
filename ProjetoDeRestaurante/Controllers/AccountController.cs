@@ -69,6 +69,7 @@ namespace ProjetoDeRestaurante.Controllers
                 var result = await _userManager.CreateAsync(user, registroVM.Pàssword);
                 if (result.Succeeded)
                 {
+                    await _userManager.AddToRoleAsync(user, "MEMBER");  
                     return RedirectToAction("Login", "Account");
                 }
                 else
