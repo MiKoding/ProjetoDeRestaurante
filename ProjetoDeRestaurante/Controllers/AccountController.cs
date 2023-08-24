@@ -37,7 +37,7 @@ namespace ProjetoDeRestaurante.Controllers
 
             var user = await _userManager.FindByNameAsync(loginVM.UserName); 
 
-            if(user != null)
+            if(user != null)// verifica a existeencia de usuario.
             {
                 var result = await _signInManager.PasswordSignInAsync(user,loginVM.Pàssword,false, false);
 
@@ -91,6 +91,11 @@ namespace ProjetoDeRestaurante.Controllers
             await _signInManager.SignOutAsync();
             return RedirectToAction("Index", "Home");
 
+        }
+
+        public IActionResult AccessDenied()
+        {
+            return View();
         }
     }
 }
