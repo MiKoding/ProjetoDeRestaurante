@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using ProjetoDeRestaurante.Context;
 using ProjetoDeRestaurante.Models;
+using ReflectionIT.Mvc.Paging;
 
 namespace ProjetoDeRestaurante.Areas.Admin.Controllers
 {
@@ -23,10 +24,18 @@ namespace ProjetoDeRestaurante.Areas.Admin.Controllers
         }
 
         // GET: Admin/AdminPedidos
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string filter, int pageindex = 1, string sort = "Nome")
         {
-            var appDbContext = _context.Pedidos.Include(p => p.Categoria);
-            return View(await appDbContext.ToListAsync());
+            var resultado = _context.Pedidos.AsNoTracking().AsQueryable();
+
+            if(!string.IsNullOrWhiteSpace(filter))
+            {
+                resultado = resultado.Where(n => n.Nome.Contains(filter)); 
+            }
+            var model = await PagingList.CreateAsync(resultado, 5, pageindex, sort, "Nome");
+            model.RouteValue = new RouteValueDictionary { { "filter", filter } };
+
+            return View(model);
         }
 
         // GET: Admin/AdminPedidos/Details/5

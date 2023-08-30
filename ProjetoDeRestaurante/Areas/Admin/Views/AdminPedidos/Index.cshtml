@@ -1,10 +1,20 @@
-﻿@model IEnumerable<ProjetoDeRestaurante.Models.Pedido>
+﻿@model ReflectionIT.Mvc.Paging.PagingList<ProjetoDeRestaurante.Models.Pedido>
 
 @{
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h1>Pedidos</h1>
+
+<form method="get" class="form-incline">
+    <input name="filter" class="form-control" placeholder="filtro" value="@Model.RouteValue["Filter"]" />
+    <button type="submit" class="btn btn-info"><span class="glyphicon glyphicon-search" aria-hidden="true"></span> Procurar</button>
+</form>
+Total de pedidos: @Model.TotalRecordCount
+
+<div>
+    <vc:pager paging-list="@Model"></vc:pager>
+</div>
 
 <p>
     <a asp-action="Create">Cadastrar Novo</a>
