@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using ProjetoDeRestaurante.Context;
 using ProjetoDeRestaurante.Models;
+using ProjetoDeRestaurante.ViewModels;
 using ReflectionIT.Mvc.Paging;
 
 namespace ProjetoDeRestaurante.Areas.Admin.Controllers
@@ -21,6 +22,27 @@ namespace ProjetoDeRestaurante.Areas.Admin.Controllers
         public AdminComprasController(AppDbContext context)
         {
             _context = context;
+        }
+
+        public IActionResult CompraPedidos(int? id)
+        {
+            var compra = _context.Compras.Include(pd => pd.CompraItens).ThenInclude(p => p.Pedido).FirstOrDefault(c => c.Id == id);
+
+            if (compra == null)
+            {
+                Response.StatusCode = 404;
+                return View("CompraNotFound", id.Value);
+
+            }
+
+            CompraPedidoViewModel compraPedidoVM = new CompraPedidoViewModel()
+            {
+                Compra = compra,
+                CompraDetalhes = compra.CompraItens
+
+            };
+
+            return View(compraPedidoVM);
         }
 
         // GET: Admin/AdminCompras

@@ -1,0 +1,44 @@
+﻿@model ProjetoDeRestaurante.ViewModels.CompraPedidoViewModel
+
+@{
+    ViewData["Title"] = "CompraPedidos";
+    decimal totalPedido = 0;
+}
+
+<h1>Pedidos na Compra</h1>
+<hr />
+<h3>Compra: @Html.DisplayFor(model => @Model.Compra.Id)</h3>
+<h3>Cliente: @Html.DisplayFor(model => @Model.Compra.Nome)</h3>
+<h3>Data: @Html.DisplayFor(model => @Model.Compra.CompraEnviada)</h3>
+<h3>Entrega: @Html.DisplayFor(model => @Model.Compra.CompraEntregaEm)</h3>
+
+<tabel class="table">
+    @foreach(var item in Model.Compra.CompraItens)
+    {
+        totalPedido += (item.Pedido.Preco * item.Quantidade);
+        <tr>
+            <td align="right">
+                <h3>@Html.DisplayFor(modelItem => item.Pedido.Nome)</h3>
+            </td>
+            <td align="right">
+               <img src="@item.Pedido.ImagemUrl" class="img-fluid" height="100" width="100">
+            </td>  
+            <td align="right">
+                <h3>@string.Format("{0:C}", item.Pedido.Preco)</h3>
+            </td> 
+            <td align="right">
+                <h3>@Html.DisplayFor(modelItem => item.Quantidade)</h3>
+            </td>
+        </tr>
+    }
+
+    <tr>
+        <td colspan="2">&nbsp</td>
+        <td align="right">
+            <h3>Total do pedido: @string.Format("{0:C}",totalPedido)</h3>
+        </td>
+    </tr>
+
+</tabel>
+
+<a asp-action="Index" class="btn btn-outline-info">Retornar</a>
