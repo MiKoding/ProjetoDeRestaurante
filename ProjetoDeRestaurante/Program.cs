@@ -24,11 +24,20 @@ using ProjetoDeRestaurante.Repositories;
 using ProjetoDeRestaurante.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using ReflectionIT.Mvc.Paging;
+using Microsoft.Extensions.Options;
 
 var builder = WebApplication.CreateBuilder(args );
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+builder.Services.AddPaging(options =>
+{
+    options.ViewName = "Bootstrap4";
+    options.PageParameterName = "pageindex";
+}
+);
 
 builder.Services.AddDbContext<AppDbContext>(options => options
                 .UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));

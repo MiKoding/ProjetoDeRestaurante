@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using ProjetoDeRestaurante.Context;
 using ProjetoDeRestaurante.Models;
+using ReflectionIT.Mvc.Paging;
 
 namespace ProjetoDeRestaurante.Areas.Admin.Controllers
 {
@@ -23,9 +24,25 @@ namespace ProjetoDeRestaurante.Areas.Admin.Controllers
         }
 
         // GET: Admin/AdminCompras
-        public async Task<IActionResult> Index()
+        //public async Task<IActionResult> Index()
+        //{
+        //      return View(await _context.Compras.ToListAsync());
+        //}
+        public async Task<IActionResult> Index(string filter, int pageindex = 1, string sort = "Nome")//implementado a paginação
         {
-              return View(await _context.Compras.ToListAsync());
+            //nota: asnotracking() permite um desempenho melhor e ele so pode ser usado por n haver alteração aqui,
+            //com o AsNoTracking as entidades não são rastreadas pelo contexto, assim o EF Core não realiza nenhum processamento adicional na entidade.
+            var resultado = _context.Compras.AsNoTracking().AsQueryable(); //asqueryble converte para um IQuery
+
+            if (!string.IsNullOrWhiteSpace(filter))
+            {
+                resultado = resultado.Where(p => p.Nome.Contains(filter));
+            }
+
+            var model = await PagingList.CreateAsync(resultado, 5, pageindex, sort, "Nome");
+            model.RouteValue = new RouteValueDictionary { { "filter", filter } }; // retorna o filtro 
+
+            return View(model);
         }
 
         // GET: Admin/AdminCompras/Details/5
