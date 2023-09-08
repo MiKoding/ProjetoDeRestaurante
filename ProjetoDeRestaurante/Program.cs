@@ -26,6 +26,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using ReflectionIT.Mvc.Paging;
 using Microsoft.Extensions.Options;
+using ProjetoDeRestaurante.Areas.Admin.Services;
 
 var builder = WebApplication.CreateBuilder(args );
 
@@ -51,6 +52,7 @@ builder.Services.AddTransient<ICategoriaRepository, CategoriaRepository>();
 builder.Services.AddTransient<ICompraRepository, CompraRepository>();
 builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();// adicionado para registrar a interface IhttpcontextAcessor para injeção de dependencias
 builder.Services.AddScoped(sp => CarrinhoCompra.GetCarrinho(sp));
+builder.Services.AddScoped<RelatorioVendasService>();
 builder.Services.AddScoped<ISeedUserRoleInitial, SeedUserRoleInitial>();
 
 builder.Services.AddAuthorization(options =>

@@ -63,7 +63,7 @@ namespace ProjetoDeRestaurante.Models
         [DisplayFormat(DataFormatString = "{0: dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         public DateTime? CompraEntregaEm { get; set; }
 
-        public List<CompraDetalhe> CompraItens { get; set; }
+        public List<CompraDetalhe> CompraItens { get; set; }//definiu uma relação entre pedido e compras
 
 
     }

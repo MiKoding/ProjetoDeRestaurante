@@ -7,6 +7,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Areas\Admin\NovaPasta\**" />
+    <Content Remove="Areas\Admin\NovaPasta\**" />
+    <EmbeddedResource Remove="Areas\Admin\NovaPasta\**" />
+    <None Remove="Areas\Admin\NovaPasta\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Compile Remove="Startup.cs" />
   </ItemGroup>
 

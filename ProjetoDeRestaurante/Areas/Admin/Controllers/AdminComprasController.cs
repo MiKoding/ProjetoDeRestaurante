@@ -30,12 +30,12 @@ namespace ProjetoDeRestaurante.Areas.Admin.Controllers
 
             if (compra == null)
             {
-                Response.StatusCode = 404;
+                Response.StatusCode = 404; // caso VAR COMPRA não seja encontrado a pagina ira ser direcionada para uma pagina de erro 404
                 return View("CompraNotFound", id.Value);
 
             }
 
-            CompraPedidoViewModel compraPedidoVM = new CompraPedidoViewModel()
+            CompraPedidoViewModel compraPedidoVM = new CompraPedidoViewModel()// chamada da viewmodel
             {
                 Compra = compra,
                 CompraDetalhes = compra.CompraItens
