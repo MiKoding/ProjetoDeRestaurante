@@ -14,7 +14,7 @@ namespace ProjetoDeRestaurante.Areas.Admin.Services
             context = _context;
         }
 
-        public async Task<List<Compra>> FindByDateAssync(DateTime? minDate, DateTime? maxDate){
+        public async Task<List<Compra>> FindByDateAssync(DateTime? minDate, DateTime? maxDate){// executa a busca de compras de uma data minima e maxima
         
             var resultado =  from obj in context.Compras select obj;
 
