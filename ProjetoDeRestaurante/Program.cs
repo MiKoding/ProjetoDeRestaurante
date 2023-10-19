@@ -40,12 +40,15 @@ builder.Services.AddPaging(options =>
 }
 );
 
+
 builder.Services.AddDbContext<AppDbContext>(options => options
                 .UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 builder.Services.AddIdentity<IdentityUser, IdentityRole>()
     .AddEntityFrameworkStores<AppDbContext>()
     .AddDefaultTokenProviders();
+builder.Services.ConfigureApplicationCookie(options => options.AccessDeniedPath = "/Account/AccessDenied");
+builder.Services.Configure<ConfigurationImagens>(builder.Configuration.GetSection("ConfigurationPastaImagens"));
 
 builder.Services.AddTransient<IPedidoRepository, PedidoRepository>();
 builder.Services.AddTransient<ICategoriaRepository, CategoriaRepository>();

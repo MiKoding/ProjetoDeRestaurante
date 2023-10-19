@@ -32,7 +32,7 @@ namespace ProjetoDeRestaurante.Services
             }
         }
 
-        public void SeedUsers() 
+        public void SeedUsers()//cria usuarios originais.
         {
            if(_userManager.FindByEmailAsync("usuario@localhost").Result == null)// criar um usuario padrão
             {
