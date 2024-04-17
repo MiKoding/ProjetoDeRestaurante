@@ -50,13 +50,22 @@ builder.Services.AddIdentity<IdentityUser, IdentityRole>()
 builder.Services.ConfigureApplicationCookie(options => options.AccessDeniedPath = "/Account/AccessDenied");
 builder.Services.Configure<ConfigurationImagens>(builder.Configuration.GetSection("ConfigurationPastaImagens"));
 
+//fornece uma instancia de HttpContextAccessor
+builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();// adicionado para registrar a interface IhttpcontextAcessor para injeção de dependencias
+
 builder.Services.AddTransient<IPedidoRepository, PedidoRepository>();
 builder.Services.AddTransient<ICategoriaRepository, CategoriaRepository>();
 builder.Services.AddTransient<ICompraRepository, CompraRepository>();
-builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();// adicionado para registrar a interface IhttpcontextAcessor para injeção de dependencias
-builder.Services.AddScoped(sp => CarrinhoCompra.GetCarrinho(sp));
+
+
 builder.Services.AddScoped<RelatorioVendasService>();
 builder.Services.AddScoped<ISeedUserRoleInitial, SeedUserRoleInitial>();
+builder.Services.AddScoped<GraficoVendasService>();
+
+//Cria um objeto Scoped, ou seja um objeto que esta associado a requisicao
+//isso significa que se duas pessoas solicitarem o objeto CarrinhoCompra ao mesmo tempo
+//elas vão obter instâncias diferentes.
+builder.Services.AddScoped(sp => CarrinhoCompra.GetCarrinho(sp));
 
 builder.Services.AddAuthorization(options =>
 {

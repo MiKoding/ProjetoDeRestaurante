@@ -1,0 +1,61 @@
+﻿<title>
+    @ViewData["Title"] - Grafico de Vendas
+</title>
+
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+<div id="chart_div" style="width: 900px; height: 500px;"></div>
+
+<script type="text/javascript">
+    google.charts.load('current', { packages: ['corechart', 'bar'] });
+    google.charts.setOnLoadCallback(CarregaDados);
+
+    function CarregaDados() {
+        $.ajax({
+            url: '@Url.Action("VendasPedidos", "AdminGrafico")',
+            data: { dias: 7 },
+            dataType: "json",
+            type: "GET",
+            error: function (xhr, status, error) {
+                var err = eval("(" + xhr.responseText + ")");
+                toastr.error(err.message);
+            },
+            success: function (data) {
+                GraficoVendasPedidos(data);
+                return false;
+            }
+        });
+        return false;
+    }
+
+    function GraficoVendasPedidos(data) {
+        var dataArray = [
+            ['Pedido', 'Quantidade', 'Valores(R$)']
+        ];
+        $.each(data, function (i, item) {
+            dataArray.push([item.pedidoNome, item.pedidosQuantidade, item.pedidosValorTotal]);
+        });
+        var data = google.visualization.arrayToDataTable(dataArray);
+        var options = {
+            title: 'Pedidos - Vendas nos últimos 360 dias',
+            
+            curveType: 'function',
+            legend: { position: 'bottom' },
+
+            chartArea: {
+                width: '70%'
+            },
+            colors: ['#5202b5', '#d2a828'],
+            hAxis: {
+                title: 'Valor Total (em Reais)',
+                minValue: 0
+            },
+            vAxis: {
+                title: 'Pedidos'
+            }
+        };
+
+        var chart = new google.visualization.LineChart(document.getElementById('chart_div')); //aqui é definido qual o tipo de gráfico que será feitos
+        chart.draw(data, options); //desenha o chart acima, e é passado os dados inseridos em data e options
+    }
+</script>
